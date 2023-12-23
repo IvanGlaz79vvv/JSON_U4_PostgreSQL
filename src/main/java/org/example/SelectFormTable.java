@@ -2,6 +2,7 @@ package org.example;
 
 import org.json.JSONArray;
 
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -13,27 +14,17 @@ public class SelectFormTable {
     public static final String ANSI_GREEN = "\033[0;32m";
     public static final String ANSI_CYAN = ("\033[0;36m");
     public static final String ANSI_BLUE = "\033[0;34m";
-     List<JSONArray> listJSONArray;
+    List<JSONArray> listJSONArray;
 
-    @Override
-    public String toString() {
-        return "employe_id: " + listJSONArray.get(0) +"\n"+
-                "first_name: " + listJSONArray.get(1) +"\n"+
-                "last_name: " + listJSONArray.get(2) +"\n"+
-                "email: " + listJSONArray.get(3) +"\n"+
-                "phone_number: " + listJSONArray.get(4) +"\n"+
-                "hire_date: " + listJSONArray.get(5) +"\n"+
-                "job_id: " + listJSONArray.get(6) +"\n"+
-                "salary: " + listJSONArray.get(7) +"\n"+
-                "comission_pct: " + listJSONArray.get(8) +"\n";
-    }
 
-    public static List<JSONArray> get_All() throws SQLException {
-
+    public static List<JSONArray> get_All() {
         List<JSONArray> JSONArray = new ArrayList<>();
 
-        try (Connection connect = CreateConnection.getConnect();
-             Statement stmt = connect.createStatement()) {
+        try (Connection connect = CreateConnection.getConnect()) {
+            Statement stmt = null;
+            stmt = connect.createStatement();
+
+
             ResultSet rs = stmt.executeQuery("SELECT * from tablicatest;");
 
             System.out.println(ANSI_BLUE + "Запрос обработан" + ANSI_RESET);
@@ -51,14 +42,16 @@ public class SelectFormTable {
                 jsonArray.put(rs.getString("comission_pct"));
                 JSONArray.add(jsonArray);
             }
-
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
+
         System.out.println("<<<<<<вывод из Json>>>>>>>");
         return JSONArray;
     }
+}
 
+/*
     public static List<String> get_C_and_B() {
         List<String> listResult = new ArrayList<>();
         try (Connection connect = CreateConnection.getConnect();
@@ -172,8 +165,6 @@ public class SelectFormTable {
     }
 
 
-
-
     public static List<String> get_Id_Name() {
 
         List<String> listResult = new ArrayList<>();
@@ -238,3 +229,4 @@ public class SelectFormTable {
         return listResult;
     }
 }
+*/

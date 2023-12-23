@@ -21,7 +21,7 @@ import static org.postgresql.core.Oid.JSON;
 import static org.postgresql.core.Oid.JSONB_ARRAY;
 
 public class Main {
-    public static void main(String[] args) throws IOException, SQLException {
+    public static void main(String[] args){
        /* String sqlUsers = "create table if not exists \"Users\" (\n" +
                 "id int generated always as identity,\n" +
                 "name varchar(50) not null,\n" +
@@ -66,12 +66,14 @@ public class Main {
                 ");";
 
         //////////////////////////////////////////
-        *//**РЎРѕР·РґР°РЅРёРµ С‚Р°Р±Р»РёС†С‹*//*
+        *//**Создание таблицы*/
+        /*
         CreateTable.getcreateTable(sqlUsers);
         CreateTable.getcreateTable(sqlContacts);
         CreateTable.getcreateTable(sqlTest);
 
-        *//**Р’РЅРµСЃРµРЅРёРµ РґР°РЅРЅС‹С…*//*
+        *//**Внесение данных*/
+        /*
         String insertUsers = "INSERT INTO \"Users\" (name) VALUES(";
         BufferedReader brUsers = new BufferedReader(new FileReader("Binder1_work (2).csv"));
         while (brUsers.ready()) {
@@ -97,30 +99,42 @@ public class Main {
         }
         System.out.println("tablicatest end\n");
         brTest.close();*/
+/**-------------Задания-----------------------------*/
+//-------------Задания-----------------------------
 
-//-------------Р—Р°РґР°РЅРёСЏ-----------------------------
-
-        //<<<<<<РІС‹РІРѕРґ РІСЃРµС… РёРјРµРЅ Рё Employee ID>>>>>>>
+        //<<<<<<вывод всех имен и Employee ID>>>>>>>
 //        System.out.println();
 //        for (String s : SelectFormTable.get_Id_Name()) {
 //            System.out.println(s);
 //        }
 
 
-        //<<<<<<РІС‹РІРѕРґ С„Р°РјРёР»РёРё Рё РґР°С‚С‹ СЂРѕР¶РґРµРЅРёСЏ>>>>>>>
+        //<<<<<<вывод фамилии и даты рождения>>>>>>>
 //        System.out.println();
 //        for (String s : SelectFormTable.get_LastName_HireDate()) {
 //            System.out.println(s);
 //        }
 //
-//        //<<<<<<РІС‹РІРѕРґ РёРјРµРЅРё Рё С„Р°РјРёР»РёРё Рё Employee ID РІ РїРѕСЂСЏРґРєРµ СѓР±С‹РІР°РЅРёСЏ РЅРѕРјРµСЂР° Employee ID>>>>>>>
+//        //<<<<<<вывод имени и фамилии и Employee ID в порядке убывания номера Employee ID>>>>>>>
 //        System.out.println();
 //        for (String s : SelectFormTable.get_Id_FirstName_LastName_HireDate_DescendingOrder()) {
 //            System.out.println(s);
 //        }
 
-        //<<<<<<РІС‹РІРѕРґ РёР· Json>>>>>>>
+
+        //<<<<<<вывод из Json>>>>>>>
         for (JSONArray s : SelectFormTable.get_All())
-            System.out.println(s.get(0) + " " + s.get(1) + " " + s.get(7));
+//            System.out.println(s.get(0) + " " + s.get(1) + " " + s.get(7));
+            System.out.println(
+                    "employe_id: " + s.get(0) + "\n\t" +
+                            "first_name: " + s.get(1) + "\n\t" +
+                            "last_name: " + s.get(2) + "\n\t" +
+                            "email: " + s.get(3) + "\n\t" +
+                            "phone_number: " + s.get(4) + "\n\t" +
+                            "hire_date: " + s.get(5) + "\n\t" +
+                            "job_id: " + s.get(6) + "\n\t" +
+                            "salary: " + s.get(7) + "\n\t" +
+                            "comission_pct: " + s.get(8) + "\n\t"
+            );
     }
 }
